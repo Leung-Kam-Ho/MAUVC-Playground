@@ -21,7 +21,7 @@ cameras:
     fourcc: MJPG
     # stream_port is ignored when combine is true; the composite uses stream.port.
 
-# HTTP server for /video_feed, /video_feed/<name>, /cameras, and YOLO info routes.
+# HTTP server for video feeds, /cameras, and /detection_info (when YOLO or AprilTag is enabled).
 server:
   host: 0.0.0.0       # Bind all network interfaces; use 127.0.0.1 for local-only access.
   port: 4001          # HTTP listening port.
@@ -29,7 +29,7 @@ server:
 # TCP JPEG output. Each frame is prefixed by a 4-byte length.
 stream:
   enabled: true       # Send raw camera frames, or the combined raw frame, to stream.port.
-  yolo_enabled: true  # Also send YOLO-annotated frames; requires the yolo section below.
+  yolo_enabled: true  # Also send annotated detections; requires yolo or apriltag config.
   host: 127.0.0.1     # Receiver address (the ROS/UI container, if applicable).
   port: 5003          # Raw port for first camera; later camera ports increment by 2 if both streams are enabled.
   yolo_port: 5004     # YOLO port for first camera; later camera ports increment by 2 if both streams are enabled.
@@ -73,3 +73,14 @@ yolo:
       color: [0, 0, 139]
     Yellow flare:
       color: [0, 255, 255]
+
+# Optional AprilTag detection (can be enabled alongside YOLO or on its own).
+# Remove the leading '#' on this block to enable it.
+# apriltag:
+#   families: tag36h11       # AprilTag family to detect.
+#   nthreads: 1              # Detector worker threads per camera.
+#   quad_decimate: 1.0       # Higher values can improve speed at reduced sensitivity.
+#   quad_sigma: 0.0           # Gaussian blur applied before detection.
+#   refine_edges: true        # Refine detected tag edges for better corner locations.
+#   decode_sharpening: 0.25   # Sharpening applied during tag decoding.
+#   color: [0, 255, 0]        # Tag outline and label color in BGR order.
