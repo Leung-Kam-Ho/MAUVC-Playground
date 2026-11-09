@@ -333,7 +333,6 @@ class YoloInferencer:
                 fy=self.config.resize,
                 interpolation=interpolation,
             )
-        # resize to 640x640 for YOLOv8 inference, maintaining aspect ratio and padding
         results = self.model(
             image, verbose=False, device=self.config.device
         )[0]
