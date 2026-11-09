@@ -1,6 +1,11 @@
 from minecraft.minecraft_override_config import MinecraftOverrideConfig
 from time import sleep
-from geometry_msgs.msg import Twist  # if you are not using ROS, you can comment this line out and create a mock Twist class
+#from geometry_msgs.msg import Twist  # if you are not using ROS, you can comment this line out and create a mock Twist class
+class Twist:
+    def __init__(self):
+        self.linear = type('linear', (), {'x': 0.0, 'y': 0.0, 'z': 0.0})()
+        self.angular = type('angular', (), {'x': 0.0, 'y': 0.0, 'z': 0.0})()
+
 
 # Workshop part 1 - Script-based automation
 if __name__ == "__main__":

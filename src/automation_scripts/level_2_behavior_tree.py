@@ -31,10 +31,10 @@ if __name__ == "__main__":
     tree = py_trees.trees.BehaviourTree(root)
     tree.setup(timeout=1.0)
 
-    # Directory to store rendered tree images
-    path = Path() / "media"
-    path.mkdir(parents=True, exist_ok=True)
-    py_trees.display.render_dot_tree(tree.root, name="behavior_tree_based", target_directory=path)
+    # # Directory to store rendered tree images
+    # path = Path() / "media"
+    # path.mkdir(parents=True, exist_ok=True)
+    # py_trees.display.render_dot_tree(tree.root, name="behavior_tree_based", target_directory=path)
 
     count = 0
     RATE_HZ = 20.0          # Display update rate
