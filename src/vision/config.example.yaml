@@ -1,43 +1,66 @@
-camera:
-  index: 0
-  width: 1920
-  height: 1080
-  fps: 30
-  fourcc: MJPG
+# Set true to vertically stack all camera frames in this list's order (top first,
+# bottom second, etc.). The composite is served at /video_feed and
+# /video_feed/combined; per-camera HTTP feeds remain available.
+combine: true
 
+# One entry per physical camera. Each camera gets its own named HTTP feed.
+cameras:
+  - name: top
+    index: 0          # OpenCV camera device index; omit to auto-detect an unused camera.
+    width: 1920       # Requested capture width in pixels.
+    height: 1080      # Requested capture height in pixels.
+    fps: 30           # Requested camera frame rate.
+    fourcc: MJPG      # Requested camera codec (four characters, e.g. MJPG).
+    # Optional raw-stream port when combine is false; YOLO ports are assigned separately.
+    # stream_port: 5003
+  - name: bottom
+    index: 1          # Second camera device index; kept below top when combined.
+    width: 1920
+    height: 1080
+    fps: 30
+    fourcc: MJPG
+    # stream_port is ignored when combine is true; the composite uses stream.port.
+
+# HTTP server for /video_feed, /video_feed/<name>, /cameras, and YOLO info routes.
 server:
-  host: 0.0.0.0
-  port: 4001
+  host: 0.0.0.0       # Bind all network interfaces; use 127.0.0.1 for local-only access.
+  port: 4001          # HTTP listening port.
 
+# TCP JPEG output. Each frame is prefixed by a 4-byte length.
 stream:
-  enabled: false
-  host: 127.0.0.1
-  port: 5003
-  width: 854
-  height: 480
-  quality: 80
-  record_dir: null
-  segment_seconds: 300
+  enabled: true       # Send raw camera frames, or the combined raw frame, to stream.port.
+  yolo_enabled: true  # Also send YOLO-annotated frames; requires the yolo section below.
+  host: 127.0.0.1     # Receiver address (the ROS/UI container, if applicable).
+  port: 5003          # Raw port for first camera; later camera ports increment by 2 if both streams are enabled.
+  yolo_port: 5004     # YOLO port for first camera; later camera ports increment by 2 if both streams are enabled.
+  width: 854          # Width to resize frames to before TCP transmission.
+  height: 480         # Height to resize frames to before TCP transmission.
+  quality: 80         # JPEG quality, 1 (smallest) to 100 (best quality/largest).
+  record_dir: null    # Directory for segmented MP4 recordings; null disables recording.
+  segment_seconds: 300 # Duration of each recording segment, in seconds.
 
+# Optional pole-label OCR. Remove this section to disable OCR and snapshots.
 ocr:
-  pole_url: http://localhost:3601/grid_pole_number
-  interval: 1.0
-  save_interval: 2.0
-  images_dir: images
+  pole_url: http://localhost:3601/grid_pole_number # HTTP endpoint receiving detected labels.
+  interval: 1.0       # Run OCR at most once per camera per this many seconds.
+  save_interval: 2.0  # Save a timestamped image from each camera every N seconds.
+  images_dir: images  # Directory where OCR snapshots are saved.
 
+# Optional YOLO detection. Remove this section to disable inference and detection routes.
 yolo:
-  model: models/best.pt
-  device: mps
-  confidence: 0.5
-  resize: 0.5
+  model: models/best.pt # Path to the Ultralytics model weights.
+  device: mps          # Inference device, e.g. mps, cpu, or 0 for GPU 0; omit for automatic.
+  confidence: 0.5      # Minimum confidence for drawing a detection box (0.0-1.0).
+  resize: 0.5          # Scale inference image; 0.5 means half width and half height.
+  # Only listed model class names are tracked. Omit classes to track all model classes.
   classes:
     Ball:
-      color: [0, 255, 255]
+      color: [0, 255, 255] # Box color in BGR order (blue, green, red).
     Blue flare:
       color: [255, 140, 0]
     Blue pail:
       color: [255, 0, 0]
-      max_count: 1
+      max_count: 1        # Maximum boxes drawn for this class per frame.
     Gate:
       color: [255, 255, 255]
       max_count: 1
