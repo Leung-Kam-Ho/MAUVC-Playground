@@ -1,11 +1,11 @@
 # Set true to vertically stack all camera frames in this list's order (top first,
 # bottom second, etc.). The composite is served at /video_feed and
 # /video_feed/combined; per-camera HTTP feeds remain available.
-combine: true
+combine: false
 
 # One entry per physical camera. Each camera gets its own named HTTP feed.
 cameras:
-  - name: top
+  - name: minecraft
     index: 0          # OpenCV camera device index; omit to auto-detect an unused camera.
     width: 1920       # Requested capture width in pixels.
     height: 1080      # Requested capture height in pixels.
@@ -13,12 +13,12 @@ cameras:
     fourcc: MJPG      # Requested camera codec (four characters, e.g. MJPG).
     # Optional raw-stream port when combine is false; YOLO ports are assigned separately.
     # stream_port: 5003
-  - name: bottom
-    index: 1          # Second camera device index; kept below top when combined.
-    width: 1920
-    height: 1080
-    fps: 30
-    fourcc: MJPG
+  # - name: bottom
+  #   index: 1          # Second camera device index; kept below top when combined.
+  #   width: 1920
+  #   height: 1080
+  #   fps: 30
+  #   fourcc: MJPG
     # stream_port is ignored when combine is true; the composite uses stream.port.
 
 # HTTP server for video feeds, /cameras, and /detection_info (when YOLO or AprilTag is enabled).
@@ -27,24 +27,24 @@ server:
   port: 4001          # HTTP listening port.
 
 # TCP JPEG output. Each frame is prefixed by a 4-byte length.
-stream:
-  enabled: true       # Send raw camera frames, or the combined raw frame, to stream.port.
-  yolo_enabled: true  # Also send annotated detections; requires yolo or apriltag config.
-  host: 127.0.0.1     # Receiver address (the ROS/UI container, if applicable).
-  port: 5003          # Raw port for first camera; later camera ports increment by 2 if both streams are enabled.
-  yolo_port: 5004     # YOLO port for first camera; later camera ports increment by 2 if both streams are enabled.
-  width: 854          # Width to resize frames to before TCP transmission.
-  height: 480         # Height to resize frames to before TCP transmission.
-  quality: 80         # JPEG quality, 1 (smallest) to 100 (best quality/largest).
-  record_dir: null    # Directory for segmented MP4 recordings; null disables recording.
-  segment_seconds: 300 # Duration of each recording segment, in seconds.
+# stream:
+#   enabled: true       # Send raw camera frames, or the combined raw frame, to stream.port.
+#   yolo_enabled: true  # Also send annotated detections; requires yolo or apriltag config.
+#   host: 127.0.0.1     # Receiver address (the ROS/UI container, if applicable).
+#   port: 5003          # Raw port for first camera; later camera ports increment by 2 if both streams are enabled.
+#   yolo_port: 5004     # YOLO port for first camera; later camera ports increment by 2 if both streams are enabled.
+#   width: 854          # Width to resize frames to before TCP transmission.
+#   height: 480         # Height to resize frames to before TCP transmission.
+#   quality: 80         # JPEG quality, 1 (smallest) to 100 (best quality/largest).
+#   record_dir: null    # Directory for segmented MP4 recordings; null disables recording.
+#   segment_seconds: 300 # Duration of each recording segment, in seconds.
 
 # Optional pole-label OCR. Remove this section to disable OCR and snapshots.
-ocr:
-  pole_url: http://localhost:3601/grid_pole_number # HTTP endpoint receiving detected labels.
-  interval: 1.0       # Run OCR at most once per camera per this many seconds.
-  save_interval: 2.0  # Save a timestamped image from each camera every N seconds.
-  images_dir: images  # Directory where OCR snapshots are saved.
+# ocr:
+#   pole_url: http://localhost:3601/grid_pole_number # HTTP endpoint receiving detected labels.
+#   interval: 1.0       # Run OCR at most once per camera per this many seconds.
+#   save_interval: 2.0  # Save a timestamped image from each camera every N seconds.
+#   images_dir: images  # Directory where OCR snapshots are saved.
 
 # Optional YOLO detection. Remove this section to disable inference and detection routes.
 yolo:
