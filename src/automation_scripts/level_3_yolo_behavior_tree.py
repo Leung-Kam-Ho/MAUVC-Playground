@@ -41,6 +41,7 @@ if __name__ == "__main__":
     # 10) Stop(node)
     # 11) MoveBasedOnDetection_Sway(node, detection_name)
     # 12) MoveBasedOnDetection_Sway_Surge(node, detection_name)
+    # 13) DetectedObject(detection_name)
 
     root = py_trees.composites.Sequence("RootSequence", memory=True)
     init_setup = Sequence("Initial Setup", memory=True, children=[
