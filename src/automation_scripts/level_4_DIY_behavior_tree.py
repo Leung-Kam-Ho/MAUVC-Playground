@@ -24,6 +24,7 @@ if __name__ == "__main__":
     # InitWorld(node)
     # SwitchCameraFront(node)
     # SwitchCameraBottom(node)
+    # Move(name, twist)
     # MoveForward(node, distance)
     # MoveBackward(node, distance)
     # MoveLeft(node, distance)
