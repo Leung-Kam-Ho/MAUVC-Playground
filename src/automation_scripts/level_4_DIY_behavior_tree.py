@@ -45,6 +45,9 @@ if __name__ == "__main__":
         SwitchCameraBottom(node),
         SwitchCameraFront(node),
         # Continue adding your own actions here to create a behavior tree.
+        Sequence("Something Something", memory=True, children=[
+            
+        ])
 
     ])
     # --- Automation Ends Here ---
