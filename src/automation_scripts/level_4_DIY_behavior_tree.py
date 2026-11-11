@@ -44,6 +44,7 @@ if __name__ == "__main__":
         InitWorld(node),
         SwitchCameraBottom(node),
         SwitchCameraFront(node),
+        # Continue adding your own actions here to create a behavior tree.
 
     ])
     # --- Automation Ends Here ---
