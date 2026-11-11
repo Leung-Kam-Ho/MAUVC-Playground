@@ -38,6 +38,7 @@ if __name__ == "__main__":
 
     # --- Automation Starts Here ---
     root.add_children([
+        InitWorld(node),
         
     ])
     # --- Automation Ends Here ---
@@ -86,4 +87,4 @@ if __name__ == "__main__":
             print("Tree finished execution.")
             break
 
-        sleep(0.001)  # small sleep to avoid busy waiting
+        sleep(0.001)  # small sleep to avoid busy waitingInitWorld(node),
