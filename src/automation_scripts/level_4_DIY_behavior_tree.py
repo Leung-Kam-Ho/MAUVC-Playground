@@ -34,9 +34,15 @@ if __name__ == "__main__":
     # MoveBasedOnDetection_Sway(node, detection_name)
     # MoveBasedOnDetection_Sway_Surge(node, detection_name)
 
+
+
+    # --- Automation Starts Here ---
     root.add_children([
         
     ])
+    # --- Automation Ends Here ---
+
+
 
     tree = py_trees.trees.BehaviourTree(root)
     tree.setup(timeout=1.0)

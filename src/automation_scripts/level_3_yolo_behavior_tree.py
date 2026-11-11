@@ -140,6 +140,9 @@ if __name__ == "__main__":
     ])
 
 
+
+
+    # --- Automation Starts Here ---
     root.add_children([
         init_setup,
         advance_forward,
@@ -148,6 +151,10 @@ if __name__ == "__main__":
         leave_pail,
         navigate_to_pole,
     ])
+    # -- Automation Ends Here ---
+    
+    
+    
     root = Timeout(name="Overall Timeout", duration=120, child=root)
     tree = py_trees.trees.BehaviourTree(root)
     tree.setup(timeout=1.0)

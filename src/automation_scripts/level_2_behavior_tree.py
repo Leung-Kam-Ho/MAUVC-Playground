@@ -34,6 +34,10 @@ if __name__ == "__main__":
     # MoveBasedOnDetection_Sway(node, detection_name)
     # MoveBasedOnDetection_Sway_Surge(node, detection_name)
 
+
+
+
+    # --- Automation Starts Here ---
     root.add_children([
         InitWorld(node),
         SwitchCameraBottom(node),
@@ -42,6 +46,11 @@ if __name__ == "__main__":
         Yaw(node, -180),
         MoveForward(node, 3)
     ])
+    # --- Automation Ends Here ---
+
+
+
+
 
     tree = py_trees.trees.BehaviourTree(root)
     tree.setup(timeout=1.0)
