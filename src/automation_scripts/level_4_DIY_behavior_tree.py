@@ -1,5 +1,7 @@
 from time import sleep, perf_counter
 import py_trees
+from py_trees.decorators import Retry, SuccessIsFailure, FailureIsSuccess, Inverter, Timeout
+from py_trees.composites import Selector, Sequence,Parallel
 from minecraft.minecraft_override_config import MinecraftOverrideConfig
 from pathlib import Path
 from automation_scripts.actions import (
@@ -40,7 +42,9 @@ if __name__ == "__main__":
     # --- Automation Starts Here ---
     root.add_children([
         InitWorld(node),
-        
+        Sequence("Initial Setup", memory=True, children=[
+            
+        ])
     ])
     # --- Automation Ends Here ---
 
