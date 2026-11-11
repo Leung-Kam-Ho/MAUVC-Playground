@@ -13,8 +13,8 @@ MAUVC Playground is an educational resource for exploring different approaches t
 ### Installation
 ```bash
 # Clone the repository
-git clone https://github.com/Leung-Kam-Ho/SAUVC-Automation-Workshop-Exercises.git
-cd SAUVC-Automation-Workshop-Exercises
+git clone https://github.com/Leung-Kam-Ho/MAUVC-Playground.git
+cd MAUVC-Playground
 
 # Install dependencies and the project in editable mode
 uv sync
@@ -29,8 +29,7 @@ cp src/vision/config.example.yaml src/vision/config.local.yaml
 The workshop uses two local HTTP services:
 
 For instructions on installing and configuring the Minecraft environment, see the [Minecraft setup guide](media/minecraft%20setup.pdf) in `media/`.
-
-The Minecraft server bundle will be available as `MAUVC_xxxxxxxx.zip` on the project's [GitHub Releases](https://github.com/Leung-Kam-Ho/SAUVC-Automation-Workshop-Exercises/releases) page. Download and set it up by following the included instructions before starting the command server below.
+The Minecraft server bundle will be available as `MAUVC_xxxxxxxx.zip` on the project's [GitHub Releases](https://github.com/Leung-Kam-Ho/MAUVC-Playground/releases) page. Download and set it up by following the included instructions before starting the command server below.
 
 **Minecraft egg control:** In the Minecraft environment, hold the egg while in water to maintain a set depth. Do not use the egg on land, as it can leave the player stuck inside a block. See the [egg control screenshot](media/egggggg.png).
 
