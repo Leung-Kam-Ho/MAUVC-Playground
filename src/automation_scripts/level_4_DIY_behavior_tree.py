@@ -59,8 +59,8 @@ if __name__ == "__main__":
     period_display = 1.0 / RATE_HZ
     period_tick = 1.0 / TICK_HZ
 
-    print("Starting in 2 seconds...")
-    sleep(2)
+    print("Starting in 5 seconds...")
+    sleep(5)
     print("Starting...")
     last_display = perf_counter()
     next_tick = perf_counter()

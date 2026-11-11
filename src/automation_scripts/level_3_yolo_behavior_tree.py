@@ -24,9 +24,7 @@ from automation_scripts.actions import (
 if __name__ == "__main__":
 
     search_angle = 40
-    print("Starting in 2 seconds...")
-    sleep(2)
-    print("Starting...")
+
     node = MinecraftOverrideConfig(override=True)
     
     # you can add your own actions here to create a behavior tree.
@@ -51,22 +49,6 @@ if __name__ == "__main__":
         SwitchCameraFront(node),
     ])
     advance_forward = Sequence("Advance Forward", memory=True, children=[
-        # Selector("Find Gate", memory=True, children=[
-        #     Sequence("Check Gate Right", memory=True, children=[
-        #         Yaw(node, -search_angle),
-        #         DetecedObject("Gate", conf_threshold=0.8),
-        #         Yaw(node, search_angle),
-        #     ]),
-        #     Sequence("Check Gate Left", memory=True, children=[
-        #         Yaw(node, search_angle),
-        #         DetecedObject("Gate", conf_threshold=0.8),
-        #         Yaw(node, -search_angle),
-        #     ]),
-        #     Sequence("Probably Centered", memory=True, children=[
-        #         DetecedObject("Gate", conf_threshold=0.8),
-        #         MoveLeft(node, 5),
-        #     ]),
-        # ]),
         MoveForward(node, 10),
     ])
     
@@ -158,6 +140,10 @@ if __name__ == "__main__":
     root = Timeout(name="Overall Timeout", duration=120, child=root)
     tree = py_trees.trees.BehaviourTree(root)
     tree.setup(timeout=1.0)
+
+    print("Starting in 5 seconds...")
+    sleep(5)
+    print("Starting...")
 
     # Directory to store rendered tree images
     # path = Path() / "media"
