@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
     root = py_trees.composites.Sequence("RootSequence", memory=True)
     
-    # you can add your own actions here to create a behavior tree for the DIY challenge
+    # you can add your own actions here to create a behavior tree.
     # below is the list of available actions you can use:
     # InitWorld(node)
     # SwitchCameraFront(node)

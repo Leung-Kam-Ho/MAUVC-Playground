@@ -28,6 +28,21 @@ if __name__ == "__main__":
     sleep(2)
     print("Starting...")
     node = MinecraftOverrideConfig(override=True)
+    
+    # you can add your own actions here to create a behavior tree.
+    # below is the list of available actions you can use:
+    # InitWorld(node)
+    # SwitchCameraFront(node)
+    # SwitchCameraBottom(node)
+    # Move(name, twist)
+    # MoveForward(node, distance)
+    # MoveBackward(node, distance)
+    # MoveLeft(node, distance)
+    # MoveRight(node, distance)
+    # Yaw(node, angle)
+    # Stop(node)
+    # MoveBasedOnDetection_Sway(node, detection_name)
+    # MoveBasedOnDetection_Sway_Surge(node, detection_name)
 
     root = py_trees.composites.Sequence("RootSequence", memory=True)
     init_setup = Sequence("Initial Setup", memory=True, children=[
