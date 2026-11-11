@@ -31,18 +31,18 @@ if __name__ == "__main__":
     
     # you can add your own actions here to create a behavior tree.
     # below is the list of available actions you can use:
-    # InitWorld(node)
-    # SwitchCameraFront(node)
-    # SwitchCameraBottom(node)
-    # Move(name, twist)
-    # MoveForward(node, distance)
-    # MoveBackward(node, distance)
-    # MoveLeft(node, distance)
-    # MoveRight(node, distance)
-    # Yaw(node, angle)
-    # Stop(node)
-    # MoveBasedOnDetection_Sway(node, detection_name)
-    # MoveBasedOnDetection_Sway_Surge(node, detection_name)
+    # 1) InitWorld(node)
+    # 2) SwitchCameraFront(node)
+    # 3) SwitchCameraBottom(node)
+    # 4) Move(name, twist)
+    # 5) MoveForward(node, distance)
+    # 6) MoveBackward(node, distance)
+    # 7) MoveLeft(node, distance)
+    # 8) MoveRight(node, distance)
+    # 9) Yaw(node, angle)
+    # 10) Stop(node)
+    # 11) MoveBasedOnDetection_Sway(node, detection_name)
+    # 12) MoveBasedOnDetection_Sway_Surge(node, detection_name)
 
     root = py_trees.composites.Sequence("RootSequence", memory=True)
     init_setup = Sequence("Initial Setup", memory=True, children=[
