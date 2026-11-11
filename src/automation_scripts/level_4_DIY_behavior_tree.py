@@ -42,9 +42,14 @@ if __name__ == "__main__":
     # --- Automation Starts Here ---
     root.add_children([
         InitWorld(node),
-        Sequence("Initial Setup", memory=True, children=[
+        SwitchCameraBottom(node),
+        SwitchCameraFront(node),
+        Sequence("Look Around", memory=True, children=[
             
-        ])
+        ]),
+        Sequence("Move Forward", memory=True, children=[
+            
+        ]),
     ])
     # --- Automation Ends Here ---
 
