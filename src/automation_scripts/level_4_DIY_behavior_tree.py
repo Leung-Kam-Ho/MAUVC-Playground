@@ -47,8 +47,11 @@ if __name__ == "__main__":
         Sequence("Look Around", memory=True, children=[
             
         ]),
-        Sequence("Move Forward", memory=True, children=[
+        Sequence("Move Around", memory=True, children=[
             
+        ]),
+        Sequence("Go To Gate", memory=True, children=[
+                    
         ]),
     ])
     # --- Automation Ends Here ---
