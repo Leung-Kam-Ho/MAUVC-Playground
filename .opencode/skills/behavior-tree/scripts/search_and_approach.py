@@ -2,7 +2,7 @@
 
 Demonstrates py_trees concepts used most often in this workshop:
   * `Selector` with `memory=True` to try alternatives until one succeeds.
-  * `DetecedObject` as a leaf that reports SUCCESS when the target is found.
+  * `DetectedObject` as a leaf that reports SUCCESS when the target is found.
   * `MoveBasedOnDetection_Sway` to centre and approach an object on camera.
   * Keeping search behaviour separate from movement behaviour in nested Sequences.
 
@@ -32,7 +32,7 @@ from automation_scripts.actions import (
     MoveBasedOnDetection_Sway,
     MoveBasedOnDetection_Sway_Surge,
     AvoidBasedOnDetection_Sway,
-    DetecedObject
+    DetectedObject
 )
 
 # --- Configuration ---
@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
             Sequence("Check Right", memory=True, children=[
                 Yaw(node, -SEARCH_ANGLE),
-                DetecedObject(TARGET_CLASS, conf_threshold=CONF_THRESHOLD),
+                DetectedObject(TARGET_CLASS, conf_threshold=CONF_THRESHOLD),
                 Yaw(node, SEARCH_ANGLE),
                 Parallel("Move to Target", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
                     Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway(node, TARGET_CLASS), num_failures=inf),
@@ -70,7 +70,7 @@ if __name__ == "__main__":
 
             Sequence("Check Left", memory=True, children=[
                 Yaw(node, SEARCH_ANGLE),
-                DetecedObject(TARGET_CLASS, conf_threshold=CONF_THRESHOLD),
+                DetectedObject(TARGET_CLASS, conf_threshold=CONF_THRESHOLD),
                 Yaw(node, -SEARCH_ANGLE),
                 Parallel("Move to Target", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
                     Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway(node, TARGET_CLASS), num_failures=inf),

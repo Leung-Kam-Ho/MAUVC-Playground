@@ -53,6 +53,6 @@ Every behaviour has one of three statuses: `RUNNING`, `SUCCESS`, or `FAILURE`. A
 ## Common mistakes
 
 - Forgetting `memory=True` — composites re-evaluate children from index 0 every tick and timed actions break.
-- Using the wrong YOLO label name in `DetecedObject` or `MoveBasedOnDetection_*` (labels must match exactly, e.g. `"Blue pail"` not `"blue pail"`).
+- Using the wrong YOLO label name in `DetectedObject` or `MoveBasedOnDetection_*` (labels must match exactly, e.g. `"Blue pail"` not `"blue pail"`).
 - Reusing a single action instance in multiple children — construct fresh instances for each child.
 - Forgetting that `MoveForward`, `Yaw`, and similar leaves send their command once and return `RUNNING` until the duration elapses; they stop automatically via `terminate()`.

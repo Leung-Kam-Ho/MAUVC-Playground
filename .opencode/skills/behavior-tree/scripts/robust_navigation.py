@@ -28,7 +28,7 @@ from automation_scripts.actions import (
     Yaw,
     Stop,
     MoveBasedOnDetection_Sway,
-    DetecedObject
+    DetectedObject
 )
 
 # --- Configuration ---
@@ -54,7 +54,7 @@ if __name__ == "__main__":
             Selector("Find Gate", memory=True, children=[
                 Sequence("Check Gate Right", memory=True, children=[
                     Yaw(node, -SEARCH_ANGLE),
-                    DetecedObject(NAV_TARGET, conf_threshold=0.8),
+                    DetectedObject(NAV_TARGET, conf_threshold=0.8),
                     Yaw(node, SEARCH_ANGLE),
                     Parallel("Move to Gate", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
                         Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway(node, NAV_TARGET), num_failures=inf),
@@ -64,7 +64,7 @@ if __name__ == "__main__":
                 SuccessIsFailure("Reset to center", child=Yaw(node, SEARCH_ANGLE)),
                 Sequence("Check Gate Left", memory=True, children=[
                     Yaw(node, SEARCH_ANGLE),
-                    DetecedObject(NAV_TARGET, conf_threshold=0.8),
+                    DetectedObject(NAV_TARGET, conf_threshold=0.8),
                     Yaw(node, -SEARCH_ANGLE),
                     Parallel("Move to Gate", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
                         Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway(node, NAV_TARGET), num_failures=inf),

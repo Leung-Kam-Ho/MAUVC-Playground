@@ -196,7 +196,7 @@ class MoveBasedOnDetection_Sway_Surge(py_trees.behaviour.Behaviour):
         return py_trees.common.Status.FAILURE
 
 
-class DetecedObject(py_trees.behaviour.Behaviour):
+class DetectedObject(py_trees.behaviour.Behaviour):
     def __init__(self, target_class: str, conf_threshold: float = 0.5):
         super().__init__("DetectedObject")
         self.target_class = target_class

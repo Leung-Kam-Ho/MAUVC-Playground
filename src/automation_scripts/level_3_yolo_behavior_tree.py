@@ -18,7 +18,7 @@ from automation_scripts.actions import (
     MoveBasedOnDetection_Sway,
     MoveBasedOnDetection_Sway_Surge,
     AvoidBasedOnDetection_Sway,
-    DetecedObject
+    DetectedObject
 )
 
 if __name__ == "__main__":
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         Selector("Find Gate", memory=True, children=[
             Sequence("Check Gate Right", memory=True, children=[
                 Yaw(node, -search_angle),
-                DetecedObject("Gate", conf_threshold=0.8),
+                DetectedObject("Gate", conf_threshold=0.8),
                 Yaw(node, search_angle),
                 Parallel("Move to Gate", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
                     Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway(node, "Gate"), num_failures=inf),
@@ -67,7 +67,7 @@ if __name__ == "__main__":
             SuccessIsFailure("Reset to center", child=Yaw(node, search_angle)),
             Sequence("Check Gate Left", memory=True, children=[
                 Yaw(node, search_angle),
-                DetecedObject("Gate", conf_threshold=0.8),
+                DetectedObject("Gate", conf_threshold=0.8),
                 Yaw(node, -search_angle),
                 Parallel("Move to Gate", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
                     Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway(node, "Gate"), num_failures=inf),
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         Selector("Find Blue Pail", memory=True, children=[
             Sequence("Check Blue Pail Right", memory=True, children=[
                 Yaw(node, -search_angle),
-                DetecedObject("Blue pail"),
+                DetectedObject("Blue pail"),
                 Yaw(node, search_angle),
                 Parallel("Center to Blue Pail", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
                     Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway(node, "Blue pail", center_hold_time=2), num_failures=inf),
@@ -93,7 +93,7 @@ if __name__ == "__main__":
             SuccessIsFailure("Reset to center", child=Yaw(node, search_angle)),
             Sequence("Check Blue Pail Left", memory=True, children=[
                 Yaw(node, search_angle),
-                DetecedObject("Blue pail"),
+                DetectedObject("Blue pail"),
                 Yaw(node, -search_angle),
                 Parallel("Center to Blue Pail", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
                     Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway(node, "Blue pail", center_hold_time=2), num_failures=inf),
@@ -105,9 +105,9 @@ if __name__ == "__main__":
 
         SwitchCameraBottom(node),
         Parallel("Move to Blue Pail", policy=py_trees.common.ParallelPolicy.SuccessOnOne(), children=[
-            # Retry(name="Retry DetectedObject", child=DetecedObject("Blue pail"), num_failures=10),
+            # Retry(name="Retry DetectedObject", child=DetectedObject("Blue pail"), num_failures=10),
             MoveForward(node, inf),
-            Retry(name="Retry DetectedObject", child=DetecedObject("Blue pail"), num_failures=inf)
+            Retry(name="Retry DetectedObject", child=DetectedObject("Blue pail"), num_failures=inf)
 
         ]),
         FailureIsSuccess(name="MoveBasedOnDetection", child=Timeout(name="Timeout MoveBasedOnDetection", duration=20,child=Retry(name="Retry MoveBasedOnDetection", child=MoveBasedOnDetection_Sway_Surge(node, "Blue pail", center_percent=0.1, move_duration=0.35, center_hold_time=2), num_failures=inf),))

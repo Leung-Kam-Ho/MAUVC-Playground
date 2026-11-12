@@ -1,9 +1,10 @@
 from time import sleep, perf_counter
 import py_trees
-from py_trees.decorators import Retry, SuccessIsFailure, FailureIsSuccess, Inverter, Timeout
+from py_trees.decorators import Retry, Repeat, SuccessIsFailure, FailureIsSuccess, Inverter, Timeout
 from py_trees.composites import Selector, Sequence,Parallel
 from minecraft.minecraft_override_config import MinecraftOverrideConfig
 from pathlib import Path
+from math import inf
 from automation_scripts.actions import (
     InitWorld,
     SwitchCameraFront,
@@ -11,7 +12,9 @@ from automation_scripts.actions import (
     MoveForward,
     MoveBackward,
     MoveLeft,
-    Yaw
+    Yaw,
+    DetectedObject,
+    MoveBasedOnDetection_Sway,
 )
 
 
@@ -93,6 +96,11 @@ if __name__ == "__main__":
 
         # Exit condition
         if tree.root.status != py_trees.common.Status.RUNNING:
+            # print the final tree status
+            print(f"\n--- Tick {count} ---")
+            child_states = ", ".join(f"{c.name}:{c.status.name}" for c in tree.root.children)
+            print(py_trees.display.ascii_tree(tree.root, show_status=True))
+            print("\n")
             print("Tree finished execution.")
             break
 
